@@ -23,6 +23,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <usb.h>
+#include <libconfig.h>
 #include <pthread.h>
 #include <fcntl.h>
 
@@ -313,8 +314,34 @@ static int handle_device(int dev_id)
 }
 
 
+void read_configuration(void) {
+
+}
+
 int main(int argc, char **argv)
 {
+  config_t cfg, *cf;
+  char install_path[1000];
+  const char *buf=NULL;
+
+
+  cf=&cfg;
+  config_init(cf);
+
+  // Look for a config file in /etc
+  if (config_read_file(cf,"/etc/eagleowl.conf")) {
+      // If it exists, use the values there
+      if (config_lookup_string(cf,"install_path",&buf)) {
+          strcpy(install_path,buf);
+          printf("Install path: %s\n",install_path);
+      }
+  }
+  else {
+      fprintf(stderr,"No configuration file: %s\n",config_error_text(cf));
+      return(EXIT_FAILURE);
+  }
+
+
   int dev_cnt;
   if(argc>1 && (strcmp(argv[1], "-d")==0) )
     demonize(argv[0]);
@@ -342,6 +369,7 @@ int main(int argc, char **argv)
     db_close();
   }
 
+  config_destroy(cf);
   return 0;
 }
 
