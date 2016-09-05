@@ -51,10 +51,7 @@ void demonize(char *arg)
 	{
 		if (!childpid)  /* child */
 		{
-			printf("Becoming a daemon and writing pid...\n");
-			FILE *pidfile = fopen("cm160.pid", "w");
-			fprintf(pidfile, "%d", getpid()); 
-			fclose(pidfile);
+			printf("Becoming a daemon...\n");
 			detachFromTerminal();
 		}
 		else            /* father */

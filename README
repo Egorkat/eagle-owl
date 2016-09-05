@@ -37,7 +37,7 @@ to display the graphs.
 Compilation
 ***********
 
-libusb-dev and libconfig-dev need to be installed (sudo apt-get install libusb-dev libconfig-dev)
+libusb-dev need to be installed (sudo apt-get install libusb-dev)
 
 $ cd src
 $ make
@@ -55,17 +55,8 @@ Do the following steps:
    where you put the executables
  * copy the content of the www directory into your web server DocumentRoot 
    directory (usually /var/www)
-
-Automatically Start Server
-**************************
-
-Upstart:
- * Copy etc/init/cm160.conf file into /etc/init.
-
-init.d:
- * Copy etc/init.d/cm160 to /etc/init.d/
- * Run "update-rc.d cm160 defaults" to update init.d
-
+ * copy the etc/init/cm160.conf file into /etc/init, if you want to start the
+   server automatically with upstart.
  
 Usage
 *****
