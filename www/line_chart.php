@@ -21,15 +21,15 @@ function display_chart($data)
   }
   $maxval = max($data);
  
-  $chart = new GoogleChart('lc', 600, 300);
-  $chart->setScale(0,$maxval);
+  $chart = new GoogleChart('lc', 1000, 300);
+  $chart->setScale(100,$maxval);
  
   $line = new GoogleChartData($data);
   $chart->addData($line);
  
   $y_axis = new GoogleChartAxis('y');
   $y_axis->setDrawTickMarks(false);
-  $y_axis->setRange(0, $maxval);
+  $y_axis->setRange(100, $maxval);
 //  $y_axis->setLabels(array(0,10,20,30)); 
   $chart->addAxis($y_axis);
  

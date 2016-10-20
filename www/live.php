@@ -2,17 +2,16 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Electricity live consumption</title>
+    <title>Live</title>
     <script src="jquery-flot/jquery.js"></script>
     <script language="javascript" type="text/javascript" src="jquery-flot/jquery.flot.js"></script>
 <!--    <script type="text/javascript" src="date.js"></script> -->
-    <script type="text/javascript" src="datejs/build/date-fr-FR.js"></script>
   </head>
   <body>
 
-    <h1>Electricity live consumption</h1>
+    <h1>Electricity live consumption in watts</h1>
 
-    <div id="live_graph" style="width:900px;height:400px;"></div>
+    <div id="live_graph" style="width:1200px;height:600px;"></div>
     <p>Update every: <input id="updateInterval" type="text" value="" style="text-align: right; width:2em"> seconds 
         ( display <a id="duration"></a> minutes )
     </p>
@@ -51,6 +50,7 @@
             var kw = new_data.split(' - ')[1];
             kw = kw.split(' ')[0];
             var v = parseFloat(kw);
+	    document.title = kw;
             data.push(v);
             if(time != getData.prev_time)
             {
@@ -166,9 +166,10 @@
       
         // setup plot
         var options = {
+	    colors: ["#004225"],
             series: { shadowSize: 0 }, // drawing is faster without shadows
             xaxis: { ticks: xaxis_ticks },
-            yaxis: { min: 0 , position: "right" },
+            yaxis: { min: 100 , position: "right" },
             grid: { markings: markings }
         };
         var plot = $.plot(graph, [ getData() ], options);
@@ -182,8 +183,7 @@
         }
       
         update();
-      }
-
+	}
       build_live_graph();
     </script>
 

@@ -14,18 +14,18 @@
 function month_to_string($nb)
 {
   $months = array(
-    1 => 'Janvier',
-    2 => 'Fevrier',
-    3 => 'Mars',
-    4 => 'Avril',
-    5 => 'Mai',
-    6 => 'Juin',
-    7 => 'Juillet',
-    8 => 'Aout',
-    9 => 'Septembre',
-    10 => 'Octobre',
-    11 => 'Novembre',
-    12 => 'Decembre',
+    1 => 'January',
+    2 => 'February',
+    3 => 'March',
+    4 => 'April',
+    5 => 'May',
+    6 => 'June',
+    7 => 'July',
+    8 => 'August',
+    9 => 'September',
+    10 => 'October',
+    11 => 'November',
+    12 => 'December',
   );
   return $months[$nb];
 }
@@ -313,8 +313,8 @@ function draw_chart(type, title, axis_x_name)
     myChart.setBarColor('#88FF88', 3)
     myChart.setBarColor('#FF8888', 2);
     myChart.setLegendForBar(1, 'Total');
-    myChart.setLegendForBar(2, 'Jour');
-    myChart.setLegendForBar(3, 'Nuit & week-end');
+    myChart.setLegendForBar(2, 'Day');
+    myChart.setLegendForBar(3, 'Night & week-end');
     myChart.setLegendShow(true);
     myChart.setLegendPosition('top middle');
 	myChart.setBarSpeed(100);
@@ -346,8 +346,8 @@ function draw_we_chart(title, axis_x_name)
   myChart.setTitleColor('#FFFFFF');
   myChart.setSize(800, 200);
   myChart.setBackgroundColor('#222244');
-  myChart.setLegend('#FF8888', 'Jour');
-  myChart.setLegend('#88FF88', 'Nuit et week-end');
+  myChart.setLegend('#FF8888', 'Day');
+  myChart.setLegend('#88FF88', 'Night & week-end');
   myChart.setPieRadius(95);
   myChart.setShowXValues(false);
   myChart.setLegendShow(true);
