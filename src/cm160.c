@@ -58,6 +58,23 @@ static char WAIT_MSG[11] = {
 struct cm160_device g_devices[MAX_DEVICES];
 static unsigned char history[HISTORY_SIZE][11];
 
+static int get_current_month () {
+        time_t time_raw_format;
+        struct tm * ptr_time;
+        char buffer[50];
+
+                int result = 0;
+
+                time ( &time_raw_format );
+                ptr_time = localtime ( &time_raw_format );
+                if(strftime(buffer,50,"%m",ptr_time) ==0){
+                        result = -1;
+                } else {
+                        result = atoi(buffer);
+                }
+        return result;
+}
+
 static void process_live_data(struct record_data *rec) 
 {
   static double _watts = -1;
@@ -106,7 +123,7 @@ void insert_db_history(void *data)
   int num_elems = (int)data;
   // For an unknown reason, the cm160 sometimes sends a value > 12 for month
   // -> in that case we use the last valid month received.
-  static int last_valid_month = 0; 
+  int last_valid_month = get_current_month(); 
   printf("insert %d elems\n", num_elems);
   printf("insert into db...\n");
   clock_t cStartClock = clock();
@@ -118,7 +135,7 @@ void insert_db_history(void *data)
     struct record_data rec;
     decode_frame(frame, &rec);
 
-    if(rec.month < 0 || rec.month > 12)
+    if(rec.month < 1 || rec.month > 12)
       rec.month = last_valid_month;
     else
       last_valid_month = rec.month;
@@ -143,7 +160,7 @@ static int process_frame(int dev_id, unsigned char *frame)
   int i;
   unsigned char data[1];
   unsigned int checksum = 0;
-  static int last_valid_month = 0; 
+  int last_valid_month = get_current_month(); 
   usb_dev_handle *hdev = g_devices[dev_id].hdev;
   int epout = g_devices[dev_id].epout;
 
@@ -183,7 +200,7 @@ static int process_frame(int dev_id, unsigned char *frame)
     struct record_data rec;
     decode_frame(frame, &rec);
 
-    if(rec.month < 0 || rec.month > 12)
+    if(rec.month < 1 || rec.month > 12)
       rec.month = last_valid_month;
     else
       last_valid_month = rec.month;
